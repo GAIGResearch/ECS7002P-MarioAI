@@ -1,11 +1,10 @@
 package agents.spencerSchumann;
 
-import java.util.ArrayList;
-
 import engine.core.MarioForwardModel;
 
+import java.util.ArrayList;
+
 /**
- *
  * @author Spencer Schumann
  */
 public class Scene {
@@ -56,7 +55,7 @@ public class Scene {
     public Scene(MarioForwardModel model, int[][] scene) {
         long startTime = System.nanoTime();
 
-        float [] marioPos = model.getMarioFloatPos();
+        float[] marioPos = model.getMarioFloatPos();
         originX = (float) Math.floor(marioPos[0] / 16.0f) * 16.0f - (model.obsGridWidth / 2) * 16.0f;
         originY = (float) Math.floor(marioPos[1] / 16.0f) * 16.0f - (model.obsGridHeight / 2) * 16.0f;
 

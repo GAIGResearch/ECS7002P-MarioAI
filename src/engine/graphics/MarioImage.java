@@ -1,27 +1,26 @@
 package engine.graphics;
 
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 
 public class MarioImage extends MarioGraphics {
     public Image[][] sheet;
     public int index;
-    
+
     public MarioImage(Image[][] sheet, int index) {
-	super();
-	this.sheet = sheet;
-	this.index = index;
+        super();
+        this.sheet = sheet;
+        this.index = index;
     }
 
     @Override
     public void render(Graphics og, int x, int y) {
-	if (!visible) return;
+        if (!visible) return;
 
-        int xPixel = (int)x-originX;
-        int yPixel = (int)y-originY;
-        Image image = this.sheet[index%sheet.length][index/sheet.length];
+        int xPixel = (int) x - originX;
+        int yPixel = (int) y - originY;
+        Image image = this.sheet[index % sheet.length][index / sheet.length];
 
-        og.drawImage(image, xPixel+(flipX?width:0), yPixel+(flipY?height:0), flipX?-width:width, flipY?-height:height, null);
+        og.drawImage(image, xPixel + (flipX ? width : 0), yPixel + (flipY ? height : 0), flipX ? -width : width, flipY ? -height : height, null);
     }
 
 }

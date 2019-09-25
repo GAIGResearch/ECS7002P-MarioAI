@@ -1,11 +1,10 @@
 package agents.spencerSchumann;
 
-import java.util.ArrayList;
-
 import engine.core.MarioForwardModel;
 
+import java.util.ArrayList;
+
 /**
- *
  * @author Spencer Schumann
  */
 public class Tiles {
@@ -72,6 +71,7 @@ public class Tiles {
             }
         }
     }
+
     ArrayList<Column> columns;
 
     public Tiles() {
