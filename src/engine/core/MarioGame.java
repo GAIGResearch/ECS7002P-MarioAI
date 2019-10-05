@@ -284,17 +284,19 @@ public class MarioGame {
             }
         }
 
-        Object[] options = {"Yes, please",
-                "No, thanks"};
-        playAgain = JOptionPane.showOptionDialog(window,
-                "Would you like to play again?",
-                "GAME OVER",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[0]);
-        window.dispose();
+        if (window != null) {
+            Object[] options = {"Yes, please",
+                    "No, thanks"};
+            playAgain = JOptionPane.showOptionDialog(window,
+                    "Would you like to play again?",
+                    "GAME OVER",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+            window.dispose();
+        }
         return new MarioResult(this.world, gameEvents, agentEvents);
     }
 
