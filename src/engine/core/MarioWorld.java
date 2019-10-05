@@ -309,7 +309,11 @@ public class MarioWorld {
             }
         }
         this.currentTick += 1;
+        float oldCameraX = this.cameraX;
         this.cameraX = this.mario.x - MarioGame.width / 2;
+        if (this.cameraX < oldCameraX) {
+            this.cameraX = oldCameraX;
+        }
         if (this.cameraX + MarioGame.width > this.level.width) {
             this.cameraX = this.level.width - MarioGame.width;
         }
@@ -370,6 +374,7 @@ public class MarioWorld {
                         }
                     }
                     this.level.setLastSpawnTick(x, y, this.currentTick);
+                    this.level.removeSpriteTemplate(x, y);
                 }
 
                 if (dir != 0) {

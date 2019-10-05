@@ -1,5 +1,6 @@
 package engine.sprites;
 
+import engine.core.MarioGame;
 import engine.graphics.MarioImage;
 import engine.helper.*;
 
@@ -65,6 +66,10 @@ public class Mario extends MarioSprite {
     }
 
     private boolean move(float xa, float ya) {
+        if (xa < 0 && x + xa <= world.cameraX) {  // Don't move off camera
+            xa = 0;
+        }
+
         while (xa > 8) {
             if (!move(8, 0))
                 return false;

@@ -354,6 +354,10 @@ public class MarioLevel {
         this.lastSpawnTime[xTile][yTile] = tick;
     }
 
+    void removeSpriteTemplate(int xTile, int yTile) {
+        this.spriteTemplates[xTile][yTile] = SpriteType.NONE;
+    }
+
     public String getSpriteCode(int xTile, int yTile) {
         return xTile + "_" + yTile + "_" + this.getSpriteType(xTile, yTile).getValue();
     }
