@@ -1,3 +1,4 @@
+import agents.MarioAgent;
 import engine.core.*;
 import engine.helper.MarioTimer;
 import levelGenerators.MarioLevelGenerator;
@@ -17,12 +18,10 @@ public class PlayLevel {
 
         // Grab a level from file, found in directory "levels/"
         String level = getLevel("levels/original/lvl-1.txt");
-
-        // Or generate a level.
-//        level = generateLevel();
+//        String level = generateLevel();  // Or generate a level.
 
         // Display the entire level.
-//        game.buildWorld(level, 1);
+        game.buildWorld(level, 1);
 
         // Repeat the game several times, maybe.
         int playAgain = 0;
@@ -32,7 +31,8 @@ public class PlayLevel {
             MarioResult result = game.playGame(level, 200, 0);
 
             // ... Or with an AI agent
-//            MarioResult result = game.runGame(new agents.robinBaumgarten.Agent(), level, 20, 0, visuals);
+//            MarioAgent ai = new agents.robinBaumgarten.Agent();
+//            MarioResult result = game.runGame(ai, level, 20, 0, visuals);
 
             // Print the results of the game
 //            System.out.println(result.getGameStatus().toString());

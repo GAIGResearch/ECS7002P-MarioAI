@@ -367,14 +367,13 @@ public class MarioWorld {
                         }
                     }
                     if (!found) {
-                        if (this.level.getLastSpawnTick(x, y) != this.currentTick - 1) {
+                        if (this.level.getLastSpawnTick(x, y) == -40) {
                             MarioSprite sprite = type.spawnSprite(this.visuals, x, y, dir);
                             sprite.initialCode = spriteCode;
                             this.addSprite(sprite);
                         }
                     }
                     this.level.setLastSpawnTick(x, y, this.currentTick);
-                    this.level.removeSpriteTemplate(x, y);
                 }
 
                 if (dir != 0) {
