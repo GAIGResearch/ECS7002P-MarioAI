@@ -9,27 +9,38 @@ import java.nio.file.Paths;
 public class PlayLevel {
 
     public static void main(String[] args) {
+        // Set to false if no visuals required for this run.
+        boolean visuals = true;
+
         // Create a MarioGame instance
         MarioGame game = new MarioGame();
 
         // Grab a level from file, found in directory "levels/"
         String level = getLevel("levels/original/lvl-1.txt");
 
-        // Or... generate a level.
+        // Or generate a level.
 //        level = generateLevel();
 
         // Display the entire level.
 //        game.buildWorld(level, 1);
 
-        // Play the level, either as a human ...
-        MarioResult result = game.playGame(level, 200, 0);
+        // Repeat the game several times, maybe.
+        int playAgain = 0;
+        while (playAgain == 0) {  // 0 - play again! 1 - end execution.
 
-        // ... Or with an AI agent
-//        MarioResult result = game.runGame(new agents.robinBaumgarten.Agent(), level, 20, 0, true);
+            // Play the level, either as a human ...
+            MarioResult result = game.playGame(level, 200, 0);
 
-        // Print the results of the game
-//        System.out.println(result.getGameStatus().toString());
-//	    printDetailedResult(result);
+            // ... Or with an AI agent
+//            MarioResult result = game.runGame(new agents.robinBaumgarten.Agent(), level, 20, 0, visuals);
+
+            // Print the results of the game
+//            System.out.println(result.getGameStatus().toString());
+//            printDetailedResult(result);
+
+            // Check if we should play again.
+            playAgain = (game.playAgain == 0 && visuals) ? 0 : 1;  // If visuals are not on, only play 1 time
+        }
     }
 
     private static String getLevel(String filepath) {
