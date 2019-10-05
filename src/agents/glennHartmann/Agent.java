@@ -1,8 +1,8 @@
 package agents.glennHartmann;
 
-import engine.core.MarioAgent;
+import agents.MarioAgent;
 import engine.core.MarioForwardModel;
-import engine.core.MarioTimer;
+import engine.helper.MarioTimer;
 import engine.helper.MarioActions;
 
 public class Agent implements MarioAgent {

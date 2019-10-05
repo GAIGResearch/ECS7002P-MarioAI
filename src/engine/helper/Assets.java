@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+
 
 public class Assets {
     public static Image[][] mario;
@@ -36,6 +38,23 @@ public class Assets {
             e.printStackTrace();
         }
 
+    }
+
+    public static Image getImage(Image[][] collection, int x, int y, float scale) {
+        return getImage(collection[x][y], scale);
+    }
+
+    public static Image getImage(Image img, float scale) {
+        if (scale != 1) {
+            int w = (int) (img.getWidth(null) * scale);
+            int h = (int) (img.getHeight(null) * scale);
+            BufferedImage resizedImage = new BufferedImage(w, h, TYPE_INT_ARGB);
+            Graphics2D g = resizedImage.createGraphics();
+            g.drawImage(img, 0, 0, w, h, null);
+            g.dispose();
+            return resizedImage;
+        }
+        return img;
     }
 
     private static Image getImage(GraphicsConfiguration gc, String imageName) throws IOException {

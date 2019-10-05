@@ -1,8 +1,8 @@
 package levelGenerators.benWeber;
 
-import engine.core.MarioLevelGenerator;
+import levelGenerators.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
-import engine.core.MarioTimer;
+import engine.helper.MarioTimer;
 
 import java.util.ArrayList;
 import java.util.Random;

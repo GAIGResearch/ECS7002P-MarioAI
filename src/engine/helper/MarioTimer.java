@@ -1,4 +1,4 @@
-package engine.core;
+package engine.helper;
 
 /**
  * Mario timer object used to control the agents so they won't exceed the allowed time.

@@ -4,10 +4,7 @@ import engine.effects.BrickEffect;
 import engine.effects.CoinEffect;
 import engine.effects.FireballEffect;
 import engine.graphics.MarioBackground;
-import engine.helper.EventType;
-import engine.helper.GameStatus;
-import engine.helper.SpriteType;
-import engine.helper.TileFeature;
+import engine.helper.*;
 import engine.sprites.*;
 
 import java.awt.*;
@@ -52,7 +49,7 @@ public class MarioWorld {
         this.killEvents = killEvents;
     }
 
-    public void initializeVisuals(GraphicsConfiguration graphicsConfig) {
+    public void initializeVisuals(GraphicsConfiguration graphicsConfig, int backgroundWidth) {
         int[][] tempBackground = new int[][]{
                 new int[]{42},
                 new int[]{42},
@@ -71,7 +68,7 @@ public class MarioWorld {
                 new int[]{42},
                 new int[]{42}
         };
-        backgrounds[0] = new MarioBackground(graphicsConfig, MarioGame.width, tempBackground);
+        backgrounds[0] = new MarioBackground(graphicsConfig, backgroundWidth, tempBackground);
         tempBackground = new int[][]{
                 new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -83,7 +80,7 @@ public class MarioWorld {
                 new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
         };
-        backgrounds[1] = new MarioBackground(graphicsConfig, MarioGame.width, tempBackground);
+        backgrounds[1] = new MarioBackground(graphicsConfig, backgroundWidth, tempBackground);
     }
 
     public void initializeLevel(String level, int timer) {
@@ -526,5 +523,16 @@ public class MarioWorld {
             }
             this.effects.get(i).render(og, cameraX, cameraY);
         }
+    }
+
+    public void renderFull(Graphics g, float scale) {
+        for (MarioBackground background : backgrounds) {
+            for (int i = -1; i < background.screenWidth / background.width + 1; i++) {
+                g.drawImage(Assets.getImage(background.image, scale), (int)(i * background.width * scale), 0, null);
+            }
+        }
+        this.level.renderFull(g, scale);
+        g.drawImage(Assets.getImage(Assets.smallMario, 0, 0, scale),
+                (int)(level.marioTileX*16*scale), (int)(level.marioTileY*16*scale), null);
     }
 }

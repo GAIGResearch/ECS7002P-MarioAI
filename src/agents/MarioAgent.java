@@ -1,4 +1,7 @@
-package engine.core;
+package agents;
+
+import engine.core.MarioForwardModel;
+import engine.helper.MarioTimer;
 
 /**
  * Interface for agents that want to play in the framework

@@ -1,7 +1,7 @@
 package agents.andySloane;
 
 import engine.core.MarioForwardModel;
-import engine.core.MarioTimer;
+import engine.helper.MarioTimer;
 
 public final class Agent extends HeuristicSearchingAgent {
     private PrioQ pq;

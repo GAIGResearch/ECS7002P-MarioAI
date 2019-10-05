@@ -1,8 +1,12 @@
 package engine.core;
 
+import agents.MarioAgent;
 import agents.human.Agent;
+import engine.graphics.MarioLevelRender;
+import engine.graphics.MarioRender;
 import engine.helper.GameStatus;
 import engine.helper.MarioActions;
+import engine.helper.MarioTimer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +70,7 @@ public class MarioGame {
     /**
      * Create a mario game with a different forward model where the player on certain event
      *
-     * @param killPlayer events that will kill the player
+     * @param killEvents events that will kill the player
      */
     public MarioGame(MarioEvent[] killEvents) {
         this.killEvents = killEvents;
@@ -222,7 +226,7 @@ public class MarioGame {
         this.world.visuals = visual;
         this.world.initializeLevel(level, 1000 * timer);
         if (visual) {
-            this.world.initializeVisuals(this.render.getGraphicsConfiguration());
+            this.world.initializeVisuals(this.render.getGraphicsConfiguration(), MarioGame.width);
         }
         this.world.mario.isLarge = marioState > 0;
         this.world.mario.isFire = marioState > 1;
@@ -279,5 +283,33 @@ public class MarioGame {
             }
         }
         return new MarioResult(this.world, gameEvents, agentEvents);
+    }
+
+    public void buildWorld(String level, float scale) {
+        String[] lines = level.split("\n");
+        int tWidth = lines[0].length();
+        int w = (int)(tWidth * 16 * scale);
+        int tHeight = lines.length;
+        int h = (int)(tHeight * 16 * scale);
+
+        this.window = new JFrame("Mario AI Framework");
+        this.render = new MarioLevelRender(scale, w, h);
+
+        JScrollPane sp = new JScrollPane(this.render);
+        Dimension size = new Dimension(w, (int) ((tHeight+2) * 16 * scale));
+        sp.setPreferredSize(size);
+
+        this.window.setContentPane(sp);
+        this.window.pack();
+        this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.render.init();
+        this.window.setVisible(true);
+
+        this.world = new MarioWorld(this.killEvents);
+        this.world.visuals = true;
+        this.world.initializeLevel(level, 0);
+        this.world.initializeVisuals(this.render.getGraphicsConfiguration(), tWidth * 16);
+        ((MarioLevelRender) this.render).renderWorld(this.world);
+        this.render.repaint();
     }
 }

@@ -1,7 +1,7 @@
 package agents.robinBaumgarten;
 
 import engine.core.MarioForwardModel;
-import engine.core.MarioTimer;
+import engine.helper.MarioTimer;
 import engine.helper.GameStatus;
 
 import java.util.ArrayList;

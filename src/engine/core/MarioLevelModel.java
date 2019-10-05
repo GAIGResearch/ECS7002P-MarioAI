@@ -1,5 +1,7 @@
 package engine.core;
 
+import agents.MarioAgent;
+
 public class MarioLevelModel {
     //start and end of the level
     public static final char MARIO_START = 'M';

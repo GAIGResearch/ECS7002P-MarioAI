@@ -1,6 +1,5 @@
 package engine.sprites;
 
-import engine.core.MarioSprite;
 import engine.effects.DeathEffect;
 import engine.effects.SquishEffect;
 import engine.graphics.MarioImage;

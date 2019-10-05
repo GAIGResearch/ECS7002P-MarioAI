@@ -3,6 +3,7 @@ package engine.core;
 import engine.helper.EventType;
 import engine.helper.GameStatus;
 import engine.helper.SpriteType;
+import engine.sprites.MarioSprite;
 
 import java.util.ArrayList;
 

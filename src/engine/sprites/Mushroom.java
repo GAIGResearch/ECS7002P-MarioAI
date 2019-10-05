@@ -1,6 +1,5 @@
 package engine.sprites;
 
-import engine.core.MarioSprite;
 import engine.graphics.MarioImage;
 import engine.helper.Assets;
 import engine.helper.EventType;

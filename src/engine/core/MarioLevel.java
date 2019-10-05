@@ -389,4 +389,28 @@ public class MarioLevel {
             this.flag.render(og, this.exitTileX * 16 - 8 - cameraX, Math.max(1, this.exitTileY - 11) * 16 + 16 - cameraY);
         }
     }
+
+    void renderFull(Graphics og, float scale) {
+        for (int xTile = 0; xTile < levelTiles.length; xTile++) {
+            for (int yTile = 0; yTile < levelTiles[0].length; yTile++) {
+                int index = levelTiles[xTile][yTile];
+                if (index != 0) {
+                    Image img = Assets.getImage(Assets.level, index % 8, index / 8, scale);
+                    og.drawImage(img, (int) (xTile * 16 * scale), (int) (yTile * 16 * scale), null);
+                }
+            }
+        }
+        for (int xTile = 0; xTile < spriteTemplates.length; xTile++) {
+            for (int yTile = 0; yTile < spriteTemplates[0].length; yTile++) {
+                if (spriteTemplates[xTile][yTile] != SpriteType.NONE && spriteTemplates[xTile][yTile] != null) {
+                    int index = spriteTemplates[xTile][yTile].getStartIndex();
+                    Image img = Assets.getImage(Assets.enemies, index % 8, index / 8, scale);
+                    og.drawImage(img, (int)(xTile * 16 * scale), (int)((yTile-1) * 16 * scale), null);
+                }
+            }
+        }
+
+        Image flagImage = Assets.getImage(flag.sheet, flag.index % flag.sheet.length, flag.index / flag.sheet.length, scale);
+        og.drawImage(flagImage, (int)((this.exitTileX * 16 - 8) * scale), (int)(Math.max(1, this.exitTileY) * 16 * scale), null);
+    }
 }

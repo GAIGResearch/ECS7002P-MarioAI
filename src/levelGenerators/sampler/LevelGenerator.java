@@ -1,8 +1,8 @@
 package levelGenerators.sampler;
 
-import engine.core.MarioLevelGenerator;
+import levelGenerators.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
-import engine.core.MarioTimer;
+import engine.helper.MarioTimer;
 
 import java.io.File;
 import java.io.IOException;

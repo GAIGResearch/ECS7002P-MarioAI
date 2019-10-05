@@ -1,6 +1,6 @@
 package engine.helper;
 
-import engine.core.MarioSprite;
+import engine.sprites.MarioSprite;
 import engine.sprites.Enemy;
 import engine.sprites.FlowerEnemy;
 

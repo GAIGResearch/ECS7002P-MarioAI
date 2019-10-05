@@ -1,4 +1,7 @@
-package engine.core;
+package levelGenerators;
+
+import engine.core.MarioLevelModel;
+import engine.helper.MarioTimer;
 
 public interface MarioLevelGenerator {
     /**

@@ -5,9 +5,9 @@ import engine.helper.Assets;
 import java.awt.*;
 
 public class MarioBackground extends MarioGraphics {
-    private Image image;
+    public Image image;
     private Graphics2D g;
-    private int screenWidth;
+    public int screenWidth;
 
     public MarioBackground(GraphicsConfiguration graphicsConfiguration, int screenWidth, int[][] indeces) {
         super();

@@ -1,8 +1,8 @@
 package agents.sergeyKarakovskiy;
 
-import engine.core.MarioAgent;
+import agents.MarioAgent;
 import engine.core.MarioForwardModel;
-import engine.core.MarioTimer;
+import engine.helper.MarioTimer;
 import engine.helper.MarioActions;
 
 /**

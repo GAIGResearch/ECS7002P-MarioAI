@@ -1,6 +1,5 @@
 package engine.sprites;
 
-import engine.core.MarioSprite;
 import engine.helper.SpriteType;
 
 public class FlowerEnemy extends Enemy {
