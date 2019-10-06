@@ -7,34 +7,35 @@ import java.util.ArrayList;
  * Can contain multiple objects in this format, given by the number of objects in list `status'.
  */
 public class MarioStats {
-    private ArrayList<GameStatus> status;
-    private double percentageComplete;
-    private int lives;
-    private int coins;
-    private int remainingTime;
-    private int marioState;
-    private int mushroomsCollected;
-    private int flowersCollected;
-    private int killsTotal;
-    private int stompKills;
-    private int fireKills;
-    private int shellKills;
-    private int fallKills;
-    private int bricksDestroyed;
-    private int numJumps;
-    private double maxXjump;
-    private int maxJumpAirTime;
-    private int numBumpBrick;
-    private int numBumpQuestionBlock;
-    private int numHurts;
+    public ArrayList<GameStatus> status;
+    public float winRate;
+    public float percentageComplete;
+    public int lives;
+    public int coins;
+    public int remainingTime;
+    public int marioState;
+    public int mushroomsCollected;
+    public int flowersCollected;
+    public int killsTotal;
+    public int stompKills;
+    public int fireKills;
+    public int shellKills;
+    public int fallKills;
+    public int bricksDestroyed;
+    public int numJumps;
+    public float maxXjump;
+    public int maxJumpAirTime;
+    public int numBumpBrick;
+    public int numBumpQuestionBlock;
+    public int numHurts;
 
     public MarioStats() {
         status = new ArrayList<>();
     }
 
-    public MarioStats(GameStatus status, double percentage, int l, int c, int time, int state, int mushrooms,
+    public MarioStats(GameStatus status, float percentage, int l, int c, int time, int state, int mushrooms,
                       int flowers, int kills, int stomp, int fire, int shell, int fall, int bricks, int jumps,
-                      double maxJump, int jumpAirTime, int bumpBrick, int bumpQuestion, int hurts) {
+                      float maxJump, int jumpAirTime, int bumpBrick, int bumpQuestion, int hurts) {
         this.status = new ArrayList<>();
         this.status.add(status);
         this.percentageComplete = percentage;
@@ -56,6 +57,7 @@ public class MarioStats {
         this.numBumpBrick = bumpBrick;
         this.numBumpQuestionBlock = bumpQuestion;
         this.numHurts = hurts;
+        calculateWinRate();
     }
 
     public MarioStats merge(MarioStats other) {
@@ -81,20 +83,26 @@ public class MarioStats {
         merged.numBumpBrick = this.numBumpBrick + other.numBumpBrick;
         merged.numBumpQuestionBlock = this.numBumpQuestionBlock + other.numBumpQuestionBlock;
         merged.numHurts = this.numHurts + other.numHurts;
+        calculateWinRate();
         return merged;
     }
 
-    @Override
-    public String toString() {
-        double records = status.size();
-        int wins = 0;
+    private void calculateWinRate() {
+        float wins = 0;
         for (GameStatus st: status) {
             if (st == GameStatus.WIN) {
                 wins++;
             }
         }
+        winRate = wins / status.size();
+    }
 
-        return "Win Rate: " + wins/records +
+    @Override
+    public String toString() {
+        double records = status.size();
+        calculateWinRate();
+
+        return "Win Rate: " + winRate +
                 "\nPercentage Completion: " + (percentageComplete/records) * 100 +
                 "\nLives: " + lives/records +
                 "\nCoins: " + coins/records +

@@ -4,17 +4,18 @@ import levelGenerators.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
 import engine.helper.MarioTimer;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class LevelGenerator implements MarioLevelGenerator {
-    private final int GROUND_Y_LOCATION = 13;
-    private final float GROUND_PROB = 0.4f;
-    private final int OBSTACLES_LOCATION = 10;
-    private final float OBSTACLES_PROB = 0.1f;
-    private final int COLLECTIBLE_LOCATION = 3;
-    private final float COLLECTIBLE_PROB = 0.05f;
-    private final float ENMEY_PROB = 0.1f;
-    private final int FLOOR_PADDING = 3;
+    private int GROUND_Y_LOCATION = 13;
+    private float GROUND_PROB = 0.4f;
+    private int OBSTACLES_LOCATION = 10;
+    private float OBSTACLES_PROB = 0.1f;
+    private int COLLECTIBLE_LOCATION = 3;
+    private float COLLECTIBLE_PROB = 0.05f;
+    private float ENEMY_PROB = 0.1f;
+    private int FLOOR_PADDING = 3;
 
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
@@ -30,7 +31,7 @@ public class LevelGenerator implements MarioLevelGenerator {
                 } else if (y > OBSTACLES_LOCATION) {
                     if (random.nextDouble() < OBSTACLES_PROB) {
                         model.setBlock(x, y, MarioLevelModel.PYRAMID_BLOCK);
-                    } else if (random.nextDouble() < ENMEY_PROB) {
+                    } else if (random.nextDouble() < ENEMY_PROB) {
                         model.setBlock(x, y,
                                 MarioLevelModel.getEnemyCharacters()[random.nextInt(MarioLevelModel.getEnemyCharacters().length)]);
                     }
