@@ -7,20 +7,6 @@ import java.util.ArrayList;
 
 public interface ParamMarioLevelGenerator extends MarioLevelGenerator {
     /**
-     * Generate a playable mario level.
-     * @param model contain a model of the level.
-     * @param timer time limit to complete generation.
-     *
-     * @return String of generated level.
-     */
-    String getGeneratedLevel(MarioLevelModel model, MarioTimer timer);
-
-    /**
-     * @return the name of the level generator
-     */
-    String getGeneratorName();
-
-    /**
      * @return the parameter search space for this generator. Each entry in the list represents values for a parameter,
      * as a float array containing the possible values the paramter at that index can take.
      */
