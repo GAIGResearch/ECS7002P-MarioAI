@@ -38,6 +38,19 @@ public class MarioLevelModel {
     public static final char SPIKY_WINGED = 'Y';
 
     /**
+     * Get all possible tiles in the game.
+     * @return a list of characters, all possible tiles.
+     */
+    public static char[] getAllTiles() {
+        return new char[]{
+                EMPTY, GROUND, PYRAMID_BLOCK, NORMAL_BRICK, COIN_BRICK, LIFE_BRICK, SPECIAL_BRICK,
+                SPECIAL_QUESTION_BLOCK, COIN_QUESTION_BLOCK, COIN_HIDDEN_BLOCK, LIFE_HIDDEN_BLOCK, USED_BLOCK, COIN,
+                PIPE, PIPE_FLOWER, BULLET_BILL, PLATFORM_BACKGROUND, PLATFORM, GOOMBA, GOOMBA_WINGED, RED_KOOPA,
+                RED_KOOPA_WINGED, GREEN_KOOPA, GREEN_KOOPA_WINGED, SPIKY, SPIKY_WINGED
+        };
+    }
+
+    /**
      * Get array of level tiles that can spawn enemies
      *
      * @return tiles that spawn enemies
@@ -218,6 +231,18 @@ public class MarioLevelModel {
         if (x > this.map.length - 1) currentX = this.map.length - 1;
         if (y > this.map[0].length - 1) currentY = this.map[0].length - 1;
         return this.map[currentX][currentY];
+    }
+
+    /**
+     * get the value of the tile in certain location
+     *
+     * @param x x tile position
+     * @param y y tile position
+     * @return the tile value
+     */
+    public Character getBlockNull(int x, int y) {
+        if (x < 0 || y < 0 || x > this.map.length - 1 || y > this.map[0].length - 1) return null;
+        return this.map[x][y];
     }
 
     /**
