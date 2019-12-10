@@ -1,8 +1,7 @@
-package levelGenerators.myRandom;
+package levelGenerators.groupE;
 
 import engine.core.MarioLevelModel;
 import engine.helper.MarioTimer;
-import levelGenerators.MarioLevelGenerator;
 import levelGenerators.ParamMarioLevelGenerator;
 
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class LevelGenerator implements ParamMarioLevelGenerator {
     public ArrayList<float[]> getParameterSearchSpace() {
         ArrayList<float[]> searchSpace = new ArrayList();
         searchSpace.add(new float[]{13, 14}); // GROUND_Y_LOCATION
-        searchSpace.add(new float[]{0.4f, 0.3f, 1f}); // GROUND_PROB
+        searchSpace.add(new float[]{0.9f, 0.3f, 1f}); // GROUND_PROB
         searchSpace.add(new float[]{10, 11, 4}); // OBSTACLES_LOCATION
         searchSpace.add(new float[]{0.1f, 0.2f}); // OBSTACLES_PROB
         searchSpace.add(new float[]{3, 4, 3}); // COLLECTIBLE_LOCATION
