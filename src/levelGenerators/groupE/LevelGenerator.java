@@ -52,20 +52,28 @@ public class LevelGenerator implements ParamMarioLevelGenerator {
 
     @Override
     public String getGeneratorName() {
-        return "MyRandomLevelGenerator";
+        return "groupE_Evolutionary_Generator";
     }
 
     @Override
     public ArrayList<float[]> getParameterSearchSpace() {
         ArrayList<float[]> searchSpace = new ArrayList();
-        searchSpace.add(new float[]{13, 14}); // GROUND_Y_LOCATION
-        searchSpace.add(new float[]{0.9f, 0.3f, 1f}); // GROUND_PROB
-        searchSpace.add(new float[]{10, 11, 4}); // OBSTACLES_LOCATION
-        searchSpace.add(new float[]{0.1f, 0.2f}); // OBSTACLES_PROB
-        searchSpace.add(new float[]{3, 4, 3}); // COLLECTIBLE_LOCATION
-        searchSpace.add(new float[]{0.05f, 0.06f}); // COLLECTIBLE_PROB
-        searchSpace.add(new float[]{0.1f, 0.2f}); // ENEMY_PROB
-        searchSpace.add(new float[]{3, 4}); // FLOOR_PADDING
+        searchSpace.add(new float[]{13}); // GROUND_Y_LOCATION
+        searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // GROUND_PROB
+        searchSpace.add(new float[]{10}); // OBSTACLES_LOCATION
+        searchSpace.add(new float[]{0.1f}); // OBSTACLES_PROB
+        searchSpace.add(new float[]{3}); // COLLECTIBLE_LOCATION
+        searchSpace.add(new float[]{0.05f}); // COLLECTIBLE_PROB
+        searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // ENEMY_PROB
+        searchSpace.add(new float[]{3}); // FLOOR_PADDING
+//        searchSpace.add(new float[]{1,2,3,4,5,6,7,8,9,10,11,12,13, 14,15,16}); // GROUND_Y_LOCATION
+//        searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // GROUND_PROB
+//        searchSpace.add(new float[]{1,2,3,4,5,6,7,8,9,10,11,12,13, 14,15,16}); // OBSTACLES_LOCATION
+//        searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // OBSTACLES_PROB
+//        searchSpace.add(new float[]{1,2,3,4,5,6,7,8,9,10,11,12,13, 14,15,16}); // COLLECTIBLE_LOCATION
+//        searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // COLLECTIBLE_PROB
+//        searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // ENEMY_PROB
+//        searchSpace.add(new float[]{1,2,3,4,5,6,7,8,9,10,11,12,13, 14,15,16}); // FLOOR_PADDING
         return searchSpace;
     }
 

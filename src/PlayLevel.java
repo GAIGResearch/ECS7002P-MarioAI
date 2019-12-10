@@ -3,6 +3,7 @@ import engine.core.MarioGame;
 import engine.core.MarioResult;
 import levelGenerators.ParamMarioLevelGenerator;
 import levelGenerators.groupE.LevelGenerator;
+import levelGenerators.groupE.RMHC;
 
 import java.util.ArrayList;
 
@@ -54,6 +55,9 @@ public class PlayLevel {
         ArrayList<float[]> searchSpace = generator.getParameterSearchSpace();
         System.out.println(searchSpace);
         generator.setParameters(new int[]{0,0,0,0,0,0,0,0});
+        RMHC hillClimber = new RMHC();
+        hillClimber.evolve(generator,100);
+
 
         // Note: either levelFile or generator must be non-null. If neither is null, levelFile takes priority.
         if (levelFile == null && generator == null) {
@@ -89,27 +93,27 @@ public class PlayLevel {
             // ... Or with an AI agent
             MarioResult result = game.runGame(robinBaumgartenAgent, level, 20, 0, visuals);
             System.out.println("robinBaumgartenAgent:"+result.getGameStatus().toString());
-            result = game.runGame(glennHartmann, level, 20, 0, visuals);
-            System.out.println("glennHartmann:"+result.getGameStatus().toString());
-            result = game.runGame(sergeyPolikarpov, level, 20, 0, visuals);
-            System.out.println("sergeyPolikarpov:"+result.getGameStatus().toString());
-            result = game.runGame(sergeyKarakovskiy, level, 20, 0, visuals);
-            System.out.println("sergeyKarakovskiy:"+result.getGameStatus().toString());
-            result = game.runGame(spencerSchumann, level, 20, 0, visuals);
-            System.out.println("spencerSchumann:"+result.getGameStatus().toString());
-            result = game.runGame(trondEllingsen, level, 20, 0, visuals);
-            System.out.println("trondEllingsen:"+result.getGameStatus().toString());
+//            result = game.runGame(glennHartmann, level, 20, 0, visuals);
+//            System.out.println("glennHartmann:"+result.getGameStatus().toString());
+//            result = game.runGame(sergeyPolikarpov, level, 20, 0, visuals);
+//            System.out.println("sergeyPolikarpov:"+result.getGameStatus().toString());
+//            result = game.runGame(sergeyKarakovskiy, level, 20, 0, visuals);
+//            System.out.println("sergeyKarakovskiy:"+result.getGameStatus().toString());
+//            result = game.runGame(spencerSchumann, level, 20, 0, visuals);
+//            System.out.println("spencerSchumann:"+result.getGameStatus().toString());
+//            result = game.runGame(trondEllingsen, level, 20, 0, visuals);
+//            System.out.println("trondEllingsen:"+result.getGameStatus().toString());
 
             // Print the results of the game
 //            System.out.println(result.getGameStatus().toString());
 //            System.out.println(resultToStats(result).toString());
 
             if (generateDifferentLevels) {
+                generator.setParameters(hillClimber.evolve(generator,1000));
                 level = generateLevel(generator);
-            }
+                game.buildWorld(level, 1);
 
-            //  Printing game level fitness
-            System.out.println(demo.featureAnalyser(level));
+            }
 
             // Check if we should play again.
             playAgain = (game.playAgain == 0 && visuals) ? 0 : 1;  // If visuals are not on, only play 1 time
