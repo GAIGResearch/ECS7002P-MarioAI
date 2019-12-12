@@ -1,47 +1,14 @@
 import agents.MarioAgent;
 import engine.core.MarioGame;
 import engine.core.MarioResult;
-import levelGenerators.ParamMarioLevelGenerator;
-import levelGenerators.groupE.LevelGenerator;
-import levelGenerators.groupE.RMHC;
-
+import levelGenerators.linear.LevelGenerator;
 import java.util.ArrayList;
 
 import static engine.helper.RunUtils.generateLevel;
 import static engine.helper.RunUtils.getLevel;
 
 @SuppressWarnings("ConstantConditions")
-public class PlayLevel {
-
-    public double featureAnalyser(String level){
-//        MarioGame game = new MarioGame();
-//        game.buildWorld(level,1);
-        String[] lines=level.split("\n");
-        ArrayList<String> levelLines= new ArrayList<String>();
-        for (String line : lines) {
-            levelLines.add(line);
-        }
-        //  Calculating the number of gaps in the floor
-        int floorGapCount = 0;
-        for (char x : levelLines.get(15).toCharArray()){
-            if (x == '-'){
-                floorGapCount++;
-            }
-        }
-        //  Calculating density of enemies
-        int enemyDensity = 0;
-        for (String line : lines){
-            for (char x : line.toCharArray()){
-                if(x=='T' || x=='g' || x=='G' || x=='r' || x=='R' || x=='k' || x=='K' || x=='y' || x=='Y' || x=='*'){
-                    enemyDensity++;
-                }
-            }
-        }
-        int idealFloorGapCount=50;
-        int idealEnemyDensity=20;
-
-        return (0.6*(floorGapCount-idealFloorGapCount)+0.4*(enemyDensity-idealEnemyDensity));
-    }
+public class PlayLevel_2 {
 
     public static void main(String[] args) {
         // Run settings:
@@ -51,13 +18,7 @@ public class PlayLevel {
         //String levelFile = "levels/original/lvl-1.txt";;
         String levelFile = null;  // null;
         //MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();  // null;
-        ParamMarioLevelGenerator generator = new LevelGenerator();  // null;
-//        generator.
-        ArrayList<float[]> searchSpace = generator.getParameterSearchSpace();
-        System.out.println(searchSpace);
-        generator.setParameters(new int[]{0,0,0,0,0,0,0,0});
-        RMHC hillClimber = new RMHC();
-        generator.setParameters(hillClimber.evolve(generator,100));
+        LevelGenerator generator = new LevelGenerator();  // null;
 
 
         // Note: either levelFile or generator must be non-null. If neither is null, levelFile takes priority.
@@ -110,7 +71,6 @@ public class PlayLevel {
 //            System.out.println(resultToStats(result).toString());
 
             if (generateDifferentLevels) {
-                generator.setParameters(hillClimber.evolve(generator,1000));
                 level = generateLevel(generator);
                 game.buildWorld(level, 1);
 

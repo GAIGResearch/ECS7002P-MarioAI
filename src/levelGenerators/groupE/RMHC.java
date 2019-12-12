@@ -29,6 +29,7 @@ public class RMHC {
         int[] currentBest = getRandomPoint(searchSpace);
         generator.setParameters(currentBest);
         float bestFitness = evaluate(getLevel(null,generator));
+//        To ensure that bestFitness is greater than 0
         while (!(bestFitness>0)){
             currentBest = getRandomPoint(searchSpace);
             generator.setParameters(currentBest);
@@ -78,26 +79,6 @@ public class RMHC {
         return mutated;
     }
 
-//    private float evaluate(int[] solution, ParamMarioLevelGenerator generator) {
-//        int noRepsPlay = 5;
-//        int noLevelsGen = 1;
-//        MarioAgent agent = new agents.robinBaumgarten.Agent();
-//
-//        generator.setParameters(solution);
-//        MarioGame game = new MarioGame();
-//
-//        MarioStats stats = new MarioStats();
-//        for (int i = 0; i < noLevelsGen; i++) {
-//            String level = RunUtils.generateLevel(generator);
-//
-//            for (int j = 0; j < noRepsPlay; j++) {
-//                MarioResult result = game.runGame(agent, level, 20, 0, false);
-//                stats = stats.merge(RunUtils.resultToStats(result));
-//            }
-//        }
-//
-//        return stats.winRate;
-//    }
 
     public float evaluate(String level){
 //        MarioGame game = new MarioGame();
@@ -114,18 +95,44 @@ public class RMHC {
                 floorGapCount++;
             }
         }
-        //  Calculating density of enemies
-        int enemyDensity = 0;
+        //  Calculating enemy count
+        int enemyCount = 0;
         for (String line : lines){
             for (char x : line.toCharArray()){
                 if(x=='T' || x=='g' || x=='G' || x=='r' || x=='R' || x=='k' || x=='K' || x=='y' || x=='Y' || x=='*'){
-                    enemyDensity++;
+                    enemyCount++;
                 }
             }
         }
-        int idealFloorGapCount=50;
-        int idealEnemyDensity=10;
 
-        return (float) (0.6*(floorGapCount-idealFloorGapCount)+0.4*(enemyDensity-idealEnemyDensity));
+        //  Calculating coins count
+        int coinsCount = 0;
+        int singleCoins = 0;
+        int coinBlocks = 0;
+        for (String line : lines){
+            for (char x : line.toCharArray()){
+                if(x=='C' || x=='o'){
+                    singleCoins++;
+                }
+                else if(x=='!' || x=='2'){
+                    coinBlocks++;
+                }
+            }
+        }
+        coinsCount=singleCoins+10*coinBlocks;
+
+        int idealFloorGapCount=50;
+        int idealEnemyCount=5;
+        int floorGapCountScore =0;
+        int enemyCountScore =0;
+        if (floorGapCount-idealFloorGapCount>0)
+            floorGapCountScore=floorGapCount-idealFloorGapCount;
+        else
+            floorGapCountScore=-(floorGapCount-idealFloorGapCount);
+        if (enemyCount-idealEnemyCount>0)
+            enemyCountScore=enemyCount-idealEnemyCount;
+        else
+            enemyCountScore=-(enemyCount-idealEnemyCount);
+        return (float) (0.2*floorGapCountScore+0.8*enemyCountScore);
     }
 }

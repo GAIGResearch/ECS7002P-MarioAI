@@ -43,10 +43,12 @@ public class LevelGenerator implements ParamMarioLevelGenerator {
                 }
             }
         }
-        model.setRectangle(0, 14, FLOOR_PADDING, 2, MarioLevelModel.GROUND);
-        model.setRectangle(model.getWidth() - 1 - FLOOR_PADDING, 14, FLOOR_PADDING, 2, MarioLevelModel.GROUND);
-        model.setBlock(FLOOR_PADDING / 2, 13, MarioLevelModel.MARIO_START);
-        model.setBlock(model.getWidth() - 1 - FLOOR_PADDING / 2, 13, MarioLevelModel.MARIO_EXIT);
+//        model.setRectangle(0, 14, FLOOR_PADDING, 2, MarioLevelModel.GROUND);
+        model.setRectangle(0, GROUND_Y_LOCATION, FLOOR_PADDING, 2, MarioLevelModel.GROUND);
+        model.setRectangle(0, GROUND_Y_LOCATION-1, FLOOR_PADDING, 2, MarioLevelModel.GROUND);
+        model.setRectangle(model.getWidth() - 1 - FLOOR_PADDING, GROUND_Y_LOCATION, FLOOR_PADDING, 2, MarioLevelModel.GROUND);
+        model.setBlock(FLOOR_PADDING / 2, GROUND_Y_LOCATION-2, MarioLevelModel.MARIO_START);
+        model.setBlock(model.getWidth() - 1 - FLOOR_PADDING / 2, GROUND_Y_LOCATION, MarioLevelModel.MARIO_EXIT);
         return model.getMap();
     }
 
@@ -58,14 +60,14 @@ public class LevelGenerator implements ParamMarioLevelGenerator {
     @Override
     public ArrayList<float[]> getParameterSearchSpace() {
         ArrayList<float[]> searchSpace = new ArrayList();
-        searchSpace.add(new float[]{13}); // GROUND_Y_LOCATION
+        searchSpace.add(new float[]{14}); // GROUND_Y_LOCATION
         searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // GROUND_PROB
         searchSpace.add(new float[]{10}); // OBSTACLES_LOCATION
-        searchSpace.add(new float[]{0.1f}); // OBSTACLES_PROB
+        searchSpace.add(new float[]{0.05f}); // OBSTACLES_PROB
         searchSpace.add(new float[]{3}); // COLLECTIBLE_LOCATION
         searchSpace.add(new float[]{0.05f}); // COLLECTIBLE_PROB
-        searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // ENEMY_PROB
-        searchSpace.add(new float[]{3}); // FLOOR_PADDING
+        searchSpace.add(new float[]{0.01f, 0.02f, 0.03f, 0.04f,0.05f, 0.06f,0.07f, 0.08f,0.09f, 0.1f}); // ENEMY_PROB
+        searchSpace.add(new float[]{2}); // FLOOR_PADDING
 //        searchSpace.add(new float[]{1,2,3,4,5,6,7,8,9,10,11,12,13, 14,15,16}); // GROUND_Y_LOCATION
 //        searchSpace.add(new float[]{0.1f, 0.2f, 0.3f, 0.4f,0.5f, 0.6f,0.7f, 0.8f,0.9f, 1f}); // GROUND_PROB
 //        searchSpace.add(new float[]{1,2,3,4,5,6,7,8,9,10,11,12,13, 14,15,16}); // OBSTACLES_LOCATION
