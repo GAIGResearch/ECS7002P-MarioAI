@@ -12,6 +12,8 @@ import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 
 public class Assets {
+    public static boolean underworld = false;
+
     public static Image[][] mario;
     public static Image[][] smallMario;
     public static Image[][] fireMario;
@@ -31,7 +33,11 @@ public class Assets {
             fireMario = cutImage(gc, "firemariosheet.png", 32, 32);
             enemies = cutImage(gc, "enemysheet.png", 16, 32);
             items = cutImage(gc, "itemsheet.png", 16, 16);
-            level = cutImage(gc, "mapsheet.png", 16, 16);
+            if (underworld) {
+                level = cutImage(gc, "mapsheet_underworld.png", 16, 16);
+            } else {
+                level = cutImage(gc, "mapsheet.png", 16, 16);
+            }
             particles = cutImage(gc, "particlesheet.png", 16, 16);
             font = cutImage(gc, "font.gif", 8, 8);
         } catch (Exception e) {

@@ -4,6 +4,8 @@ import engine.helper.Assets;
 
 import java.awt.*;
 
+import static engine.helper.Assets.underworld;
+
 public class MarioBackground extends MarioGraphics {
     public Image image;
     private Graphics2D g;
@@ -24,12 +26,14 @@ public class MarioBackground extends MarioGraphics {
 
     private void updateArea(int[][] indeces) {
         g.setBackground(new Color(0, 0, 0, 0));
-        g.clearRect(0, 0, this.width, this.height);
-        for (int x = 0; x < indeces[0].length; x++) {
-            for (int y = 0; y < indeces.length; y++) {
-                int xTile = indeces[y][x] % 8;
-                int yTile = indeces[y][x] / 8;
-                g.drawImage(Assets.level[xTile][yTile], x * 16, y * 16, 16, 16, null);
+        if (!underworld) {  // Only draw clouds background if in over world.
+            g.clearRect(0, 0, this.width, this.height);
+            for (int x = 0; x < indeces[0].length; x++) {
+                for (int y = 0; y < indeces.length; y++) {
+                    int xTile = indeces[y][x] % 8;
+                    int yTile = indeces[y][x] / 8;
+                    g.drawImage(Assets.level[xTile][yTile], x * 16, y * 16, 16, 16, null);
+                }
             }
         }
     }

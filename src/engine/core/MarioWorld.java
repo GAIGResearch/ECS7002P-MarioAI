@@ -530,9 +530,13 @@ public class MarioWorld {
     }
 
     public void renderFull(Graphics g, float scale) {
-        for (MarioBackground background : backgrounds) {
-            for (int i = -1; i < background.screenWidth / background.width + 1; i++) {
-                g.drawImage(Assets.getImage(background.image, scale), (int)(i * background.width * scale), 0, null);
+        g.setColor(Color.black);
+        g.fillRect(0, 0, level.width, level.height);
+        if (!Assets.underworld) {
+            for (MarioBackground background : backgrounds) {
+                for (int i = -1; i < background.screenWidth / background.width + 1; i++) {
+                    g.drawImage(Assets.getImage(background.image, scale), (int) (i * background.width * scale), 0, null);
+                }
             }
         }
         this.level.renderFull(g, scale);
