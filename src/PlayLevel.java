@@ -5,7 +5,9 @@ import levelGenerators.ParamMarioLevelGenerator;
 import levelGenerators.groupE.LevelGenerator;
 import levelGenerators.groupE.RMHC;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static engine.helper.RunUtils.generateLevel;
 import static engine.helper.RunUtils.getLevel;
@@ -17,10 +19,7 @@ public class PlayLevel {
 //        MarioGame game = new MarioGame();
 //        game.buildWorld(level,1);
         String[] lines=level.split("\n");
-        ArrayList<String> levelLines= new ArrayList<String>();
-        for (String line : lines) {
-            levelLines.add(line);
-        }
+        ArrayList<String> levelLines = new ArrayList<>(Arrays.asList(lines));
         //  Calculating the number of gaps in the floor
         int floorGapCount = 0;
         for (char x : levelLines.get(15).toCharArray()){
@@ -57,8 +56,8 @@ public class PlayLevel {
         System.out.println(searchSpace);
         generator.setParameters(new int[]{0,0,0,0,0,0,0,0});
         RMHC hillClimber = new RMHC();
-        generator.setParameters(hillClimber.evolve(generator,100));
-
+        generator.setParameters(hillClimber.evolve(generator,10000));
+        hillClimber.evaluate(getLevel(null, generator), true);
 
         // Note: either levelFile or generator must be non-null. If neither is null, levelFile takes priority.
         if (levelFile == null && generator == null) {
@@ -85,15 +84,24 @@ public class PlayLevel {
         game.buildWorld(level, 1);
 
         // Repeat the game several times, maybe.
+        // for experiment
+        int maxRounds = 10;      // for experiment
+        int round = 1;          // for experiment
+        int winCount = 0;       // for experiment
+        ArrayList<Integer> jumpsCounts = new ArrayList<>();
+        ArrayList<Integer> jumpsMaxHeights = new ArrayList<>();
+        ArrayList<Integer> totalKills = new ArrayList<>();
+        ArrayList<Integer> remainingTimes = new ArrayList<>();
+        //////
         int playAgain = 0;
-        while (playAgain == 0) {  // 0 - play again! 1 - end execution.
+        while (playAgain == 0 && round++ <= maxRounds) {  // 0 - play again! 1 - end execution.
 
             // Play the level, either as a human ...
             //MarioResult result = game.playGame(level, 200, 0);
 
             // ... Or with an AI agent
             MarioResult result = game.runGame(robinBaumgartenAgent, level, 20, 0, visuals);
-            System.out.println("robinBaumgartenAgent:"+result.getGameStatus().toString());
+            System.out.println("robinBaumgartenAgent:" + result.getGameStatus().toString());
 //            result = game.runGame(glennHartmann, level, 20, 0, visuals);
 //            System.out.println("glennHartmann:"+result.getGameStatus().toString());
 //            result = game.runGame(sergeyPolikarpov, level, 20, 0, visuals);
@@ -104,13 +112,18 @@ public class PlayLevel {
 //            System.out.println("spencerSchumann:"+result.getGameStatus().toString());
 //            result = game.runGame(trondEllingsen, level, 20, 0, visuals);
 //            System.out.println("trondEllingsen:"+result.getGameStatus().toString());
+            winCount += result.getGameStatus().toString().equals("WIN") ? 1 : 0;
+            jumpsCounts.add(result.getNumJumps());
+            jumpsMaxHeights.add(result.getMaxJumpAirTime());
+            totalKills.add(result.getKillsTotal());
+            remainingTimes.add(result.getRemainingTime());
 
             // Print the results of the game
 //            System.out.println(result.getGameStatus().toString());
 //            System.out.println(resultToStats(result).toString());
 
             if (generateDifferentLevels) {
-                generator.setParameters(hillClimber.evolve(generator,1000));
+                generator.setParameters(hillClimber.evolve(generator,10000));
                 level = generateLevel(generator);
                 game.buildWorld(level, 1);
 
@@ -119,5 +132,27 @@ public class PlayLevel {
             // Check if we should play again.
             playAgain = (game.playAgain == 0 && visuals) ? 0 : 1;  // If visuals are not on, only play 1 time
         }
+        // experiment statistics
+        System.out.println("Win rate: " + (double) winCount / Math.min(round, maxRounds));
+
+        int totalJumps = 0;
+        for (int jumpCount : jumpsCounts) totalJumps += jumpCount;
+        System.out.println("Numbers of jumps:" + Arrays.toString(jumpsCounts.toArray()));
+        System.out.println("Average number of jumps:" + (double) totalJumps / jumpsCounts.size());
+
+        int totalJumpHeight = 0;
+        for (int jumpHeight : jumpsMaxHeights) totalJumpHeight += jumpHeight;
+        System.out.println("Max jump heights:" + Arrays.toString(jumpsMaxHeights.toArray()));
+        System.out.println("Average max jump height:" + (double) totalJumpHeight / jumpsMaxHeights.size());
+
+        int totalKillsCount = 0;
+        for (int totalKill : totalKills) totalKillsCount += totalKill;
+        System.out.println("Kills count:" + Arrays.toString(totalKills.toArray()));
+        System.out.println("Average number of kills:" + (double) totalKillsCount / totalKills.size());
+
+        int totalRemainingTimes = 0;
+        for (int remainingTime : remainingTimes) totalRemainingTimes += remainingTime;
+        System.out.println("Remaining times:" + Arrays.toString(remainingTimes.toArray()));
+        System.out.println("Average remaining time:" + (double) totalRemainingTimes / remainingTimes.size());
     }
 }

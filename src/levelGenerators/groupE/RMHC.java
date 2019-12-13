@@ -28,12 +28,12 @@ public class RMHC {
         // Random initialization
         int[] currentBest = getRandomPoint(searchSpace);
         generator.setParameters(currentBest);
-        float bestFitness = evaluate(getLevel(null,generator));
+        float bestFitness = evaluate(getLevel(null,generator), false);
 //        To ensure that bestFitness is greater than 0
-        while (!(bestFitness>0)){
+        while (bestFitness <= 0){
             currentBest = getRandomPoint(searchSpace);
             generator.setParameters(currentBest);
-            bestFitness = evaluate(getLevel(null,generator));
+            bestFitness = evaluate(getLevel(null,generator), false);
         }
         System.out.println("Initial parameters: "+Arrays.toString(currentBest));
         System.out.println("Initial fitness: "+bestFitness);
@@ -43,17 +43,17 @@ public class RMHC {
             // Mutate current best
             int[] candidate = mutate(currentBest, searchSpace);
             generator.setParameters(candidate);
-            float candidateFitness = evaluate(getLevel(null,generator));
+            float candidateFitness = evaluate(getLevel(null,generator), false);
 
             // Keep the better solution
-            if (candidateFitness>0 && candidateFitness < bestFitness) {
+            if (candidateFitness > 0 && candidateFitness < bestFitness) {
                 currentBest = candidate;
                 bestFitness = candidateFitness;
             }
         }
 
-        System.out.println("Final parameters: "+Arrays.toString(currentBest));
-        System.out.println("Final fitness: "+bestFitness);
+        System.out.println("Final parameters: " + Arrays.toString(currentBest));
+        System.out.println("Final fitness: " + bestFitness);
         return currentBest;
     }
 
@@ -80,14 +80,11 @@ public class RMHC {
     }
 
 
-    public float evaluate(String level){
+    public float evaluate(String level, boolean showParams){
 //        MarioGame game = new MarioGame();
 //        game.buildWorld(level,1);
         String[] lines=level.split("\n");
-        ArrayList<String> levelLines= new ArrayList<String>();
-        for (String line : lines) {
-            levelLines.add(line);
-        }
+        ArrayList<String> levelLines = new ArrayList<>(Arrays.asList(lines));
         //  Calculating the number of gaps in the floor
         int floorGapCount = 0;
         for (char x : levelLines.get(15).toCharArray()){
@@ -95,6 +92,7 @@ public class RMHC {
                 floorGapCount++;
             }
         }
+        if (showParams) System.out.println("Gap count: " + floorGapCount);
         //  Calculating enemy count
         int enemyCount = 0;
         for (String line : lines){
@@ -104,6 +102,7 @@ public class RMHC {
                 }
             }
         }
+        if (showParams) System.out.println("Enemy count: " + enemyCount);
 
         //  Calculating coins count
         int coinsCount = 0;
@@ -119,20 +118,12 @@ public class RMHC {
                 }
             }
         }
-        coinsCount=singleCoins+10*coinBlocks;
+        coinsCount = singleCoins + 10 * coinBlocks;
 
-        int idealFloorGapCount=50;
-        int idealEnemyCount=5;
-        int floorGapCountScore =0;
-        int enemyCountScore =0;
-        if (floorGapCount-idealFloorGapCount>0)
-            floorGapCountScore=floorGapCount-idealFloorGapCount;
-        else
-            floorGapCountScore=-(floorGapCount-idealFloorGapCount);
-        if (enemyCount-idealEnemyCount>0)
-            enemyCountScore=enemyCount-idealEnemyCount;
-        else
-            enemyCountScore=-(enemyCount-idealEnemyCount);
-        return (float) (0.2*floorGapCountScore+0.8*enemyCountScore);
+        int idealFloorGapCount = 70;
+        int idealEnemyCount = 60;
+        int floorGapCountScore = Math.abs(floorGapCount - idealFloorGapCount);
+        int enemyCountScore = Math.abs(enemyCount - idealEnemyCount);
+        return (float) (0.2 * floorGapCountScore + 0.8 * enemyCountScore);
     }
 }
