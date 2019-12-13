@@ -47,7 +47,7 @@ public class PlayLevel {
         boolean visuals = true;  // Set to false if no visuals required for this run.
 //        boolean generateDifferentLevels = false;  // If true, each play will be a different generated level.
         boolean generateDifferentLevels = true;  // If true, each play will be a different generated level.
-        //String levelFile = "levels/original/lvl-1.txt";;
+//        String levelFile = "levels/original/lvl-1.txt";
         String levelFile = null;  // null;
         //MarioLevelGenerator generator = new levelGenerators.notch.LevelGenerator();  // null;
         ParamMarioLevelGenerator generator = new LevelGenerator();  // null;
